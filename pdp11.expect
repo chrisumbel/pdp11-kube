@@ -1,0 +1,20 @@
+#!/usr/bin/expect
+set timeout -1
+spawn ./pdp11
+expect @
+send -- "boot\r"
+expect :
+send -- "rl(0,0)rl2unix\r"
+expect "#"
+send \004
+
+expect "login:"
+send \005
+expect "sim>"
+send "set console telnet=2023\r"
+expect "sim>"
+send -- "GO\r"
+expect "sim>"
+send -- "EXIT\r"
+
+interact 

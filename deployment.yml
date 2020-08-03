@@ -1,0 +1,32 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    labels:
+        app: pdp11
+    name: pdp11
+spec:
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: pdp11
+            name: pdp11
+        spec:
+            containers:
+            - name: pdp11
+              image: chrisumbel/pdp11:11
+              ports:
+              - containerPort: 8023
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pdp11
+spec:
+  type: LoadBalancer
+  selector:
+    app: pdp11
+  ports:
+  - protocol: TCP
+    port: 8023
